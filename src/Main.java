@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -11,20 +12,15 @@ public class Main {
 
         String theString = sc.nextLine();
 
-
-        reversedVowels(theString);
-
         System.out.println("The input string is: " + theString);
+        System.out.println("The output string is: " + reversedVowels(theString));
     }
 
     private static String reversedVowels(String theString) {
 
         char[] theStringCharArray = theString.toCharArray();
 
-        Map<Integer, Character> indexAndVowels = new HashMap<>();
-
-        ArrayList vowelsInString = new ArrayList<>();
-        ArrayList positionsOfVowelsInString = new ArrayList<>();
+        Map<Integer, Character> indexAndVowels = new TreeMap<>();
 
         for (int x = 0; x < theStringCharArray.length; x++) {
 
@@ -34,24 +30,22 @@ public class Main {
 
                 indexAndVowels.put(x, currentCharacter);
 
-                vowelsInString.add(currentCharacter);
-                positionsOfVowelsInString.add(x);
                 System.out.println(currentCharacter);
             }
         }
 
-        System.out.println(positionsOfVowelsInString);
+        System.out.println(indexAndVowels);
 
-        Collections.sort(positionsOfVowelsInString, Collections.reverseOrder());
+        Map<Integer, Character> reverseSortedMap = new TreeMap<>(Collections.reverseOrder());
 
-        System.out.println(positionsOfVowelsInString);
+        reverseSortedMap.putAll(indexAndVowels);
 
-        for (int y = 0; y < positionsOfVowelsInString.size(); y++) {
+        System.out.println(reverseSortedMap);
 
+        for (Map.Entry<Integer,Character> entry : reverseSortedMap.entrySet()) {
+            theStringCharArray[entry.getKey()] = entry.getValue();
         }
 
-
-
-        return theStringCharArray.toString(); // TODO
+        return String.copyValueOf(theStringCharArray);
     }
 }
