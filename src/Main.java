@@ -33,7 +33,7 @@ public class Main {
         }
 
         for (Object position : positionsOfVowelsInString) {
-            theStringCharArray[(int) position] = (char) vowelsInString.pop();
+            theStringCharArray[(int) position] = vowelsInString.pop();
         }
 
         return String.copyValueOf(theStringCharArray);
