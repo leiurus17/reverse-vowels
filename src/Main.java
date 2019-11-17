@@ -1,9 +1,8 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
-    static ArrayList vowels = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
+    private static ArrayList vowels = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
 
     public static void main(String[] args) {
         System.out.println("Input a string: ");
@@ -20,30 +19,21 @@ public class Main {
 
         char[] theStringCharArray = theString.toCharArray();
 
-        Map<Integer, Character> indexAndVowels = new TreeMap<>();
+        Stack<Character> vowelsInString = new Stack<>();
+        ArrayList<Integer> positionsOfVowelsInString = new ArrayList<>();
 
         for (int x = 0; x < theStringCharArray.length; x++) {
 
             char currentCharacter  = theString.charAt(x);
 
             if (vowels.contains(currentCharacter)) {
-
-                indexAndVowels.put(x, currentCharacter);
-
-                System.out.println(currentCharacter);
+                vowelsInString.add(currentCharacter);
+                positionsOfVowelsInString.add(x);
             }
         }
 
-        System.out.println(indexAndVowels);
-
-        Map<Integer, Character> reverseSortedMap = new TreeMap<>(Collections.reverseOrder());
-
-        reverseSortedMap.putAll(indexAndVowels);
-
-        System.out.println(reverseSortedMap);
-
-        for (Map.Entry<Integer,Character> entry : reverseSortedMap.entrySet()) {
-            theStringCharArray[entry.getKey()] = entry.getValue();
+        for (Object position : positionsOfVowelsInString) {
+            theStringCharArray[(int) position] = (char) vowelsInString.pop();
         }
 
         return String.copyValueOf(theStringCharArray);
